@@ -78,11 +78,7 @@ class User < ActiveRecord::Base
 end
 
 ###### SAMPLE #####
-@sam = User.create name: "Samuel"
-@jackson = User.create name: "Jackson"
 
-@justin = User.create name: "Justin"
-@jenny = User.create name: "Jenny"
 
 
 # Adding and removing friends
