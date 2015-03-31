@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-
-gem 'mailboxer'
+gem 'mailboxer', :git => 'git://github.com/div/mailboxer.git', :branch => 'rails42-foreigner'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-linkedin'
+gem 'popular'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
