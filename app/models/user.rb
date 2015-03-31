@@ -61,4 +61,52 @@ class User < ActiveRecord::Base
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
   end
+
+  popular friendship_profile: true
+
+   # You can also use a symbol here but the friendship won't be passed to your method
+  after_befriend 'notify_friendship_created value'
+  after_unfriend 'notify_unfriended value'
+
+  def notify_friendship_created(friendship)
+    puts "#{name} friended #{friendship.friend.name}"
+  end
+
+  def notify_unfriended(friendship)
+    puts "#{name} unfriended #{friendship.friend.name}"
+  end
 end
+
+###### SAMPLE #####
+@sam = User.create name: "Samuel"
+@jackson = User.create name: "Jackson"
+
+@justin = User.create name: "Justin"
+@jenny = User.create name: "Jenny"
+
+
+# Adding and removing friends
+@sam.friends_with? @jackson         #=> false
+@sam.friended_by? @jackson          #=> false
+
+@sam.befriend @jackson
+@sam.friends_with? @jackson         #=> true
+
+@sam.unfriend @jackson
+@sam.friends_with? @jackson         #=> false
+
+@jackson.befriend @sam
+@sam.friended_by? @jackson          #=> true
+
+@sam.befriend @jackson
+@sam.mutual_friends_with? @jackson  #=> true
+
+@sam.follow @jackson
+@sam.following? @jackson          #=> true
+
+@jackson.follow @sam
+@sam.followers.include? @jackson  #=> true
+
+@justin.befriend @jenny #=> "Justin friended Jenny"
+@justin.unfriend @jenny #=> "Justin unfriended Jenny"
+
